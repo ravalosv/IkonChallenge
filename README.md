@@ -1,14 +1,13 @@
 # IkonChallenge
 
-Descargar el proyecto de: https://github.com/ravalosv/IkonChallenge.git
+Download project at: https://github.com/ravalosv/IkonChallenge.git
 
-Abrir IkonChallenge.sln con Visual Studio 2019
+Pre-requisites: Net. Framework 4.5
 
-Ejecutar aplicación.
+Open IkonChallenge.sln with Visual Studio 2019
 
-El sistema busca el archivo llamado challenge.in el cual debe estar ubicado en la misma carpeta que el ejecutable (IkonChallenge.exe)
+Run it.
 
-Al finalizar la ejecución el sistema escribirá un archivo llamado challenge.out en esa misma carpeta.
+System looks for a file named challenge.ini wich must be located in same location than executable (IkonChallenge.exe) ussually in bin folder.
 
-
-Prerequisitos: Net. Framework 4.5
+After the process finishes the system will write a file named challenge.out at the same folder.
