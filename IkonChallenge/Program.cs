@@ -13,7 +13,7 @@ namespace IkonChallenge
             ProcessCalculator proceso = new ProcessCalculator();
             proceso.Start();
 
-            Console.WriteLine("Enter para terminar...");
+            Console.WriteLine("Enter to finish...");
             Console.ReadLine();
         }
     }

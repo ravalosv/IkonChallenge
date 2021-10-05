@@ -30,7 +30,7 @@ namespace IkonChallenge
             }
 
             if (string.IsNullOrEmpty(mensaje))
-                mensaje = "Proceso ejecutado satisfactoriamente.";
+                mensaje = "Processes executed successfully.";
 
             Console.WriteLine(mensaje);
         }

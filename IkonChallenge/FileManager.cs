@@ -24,7 +24,7 @@ namespace IkonChallenge
             try
             {
                 if (!File.Exists(inputFullFileName))
-                    return ($"Error: No se encuentra el archivo {inputFileName}", null);
+                    return ($"Error: The file {inputFileName} cannot be found", null);
 
                 using (var inputFile = File.OpenText(inputFileName))
                 {
@@ -66,7 +66,7 @@ namespace IkonChallenge
             }
             catch (Exception ex)
             {
-                return ($"Error al escribir archivo de salida: {ex.Message}");
+                return ($"Some errors ocurred when writing output file: {ex.Message}");
             }
         }
 
@@ -78,7 +78,7 @@ namespace IkonChallenge
             var isMatch = rgx.IsMatch(contenido);
 
             if (!isMatch)
-                return (false, "El contenido del archivo de entrada es inválido");
+                return (false, "Invalid file content");
 
             return (true, "");
             
