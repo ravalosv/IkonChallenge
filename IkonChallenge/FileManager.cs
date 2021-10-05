@@ -29,7 +29,8 @@ namespace IkonChallenge
                 using (var inputFile = File.OpenText(inputFileName))
                 {
                     var contenido = inputFile.ReadToEnd();
-                    //
+
+                    contenido = contenido.Replace("\r", "");    // quitar los retorno de carro
 
                     (bool valido, string mensaje) = validarArchivoEntrada(contenido);
 
@@ -38,7 +39,7 @@ namespace IkonChallenge
                     else
                     {
                         // regresar solo lineas no vacias 
-                        var lineas = contenido.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None).Where(p => p.Trim() != "");
+                        var lineas = contenido.Split(new string[] { "\n" }, StringSplitOptions.None).Where(p => p.Trim() != "");
                         return ("", lineas.ToList());
                     }
                 }
@@ -71,7 +72,6 @@ namespace IkonChallenge
 
         private (bool valido, string mensaje) validarArchivoEntrada(string contenido)
         {
-            contenido = contenido.Replace("\r", "");    // quitar los retorno de carro
 
             Regex rgx = new Regex(RegexStringBuilder.validadorArchivo()); ;
 
