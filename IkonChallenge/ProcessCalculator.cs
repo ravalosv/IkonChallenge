@@ -21,7 +21,9 @@ namespace IkonChallenge
                 // Se van tomando lineas en grupos de 3
                 for (int i = 0; i <= lineas.Count() - 1; i += 3)
                 {
-                    procesosOptimos.Add(procesar(int.Parse(lineas[i]), lineas[i + 1], lineas[i + 2]));
+                    procesosOptimos.Add(
+                        procesar(int.Parse(lineas[i]), lineas[i + 1], lineas[i + 2])
+                        );
                 }
 
                 mensaje = file.EscribirArchivoSalida(procesosOptimos);
@@ -46,19 +48,20 @@ namespace IkonChallenge
             return tasks;
         }
 
-        private string obtenerProcesosOptimos(int capacidadMaxima, Dictionary<int, int> foregroundTasks, Dictionary<int, int> backgroundTasks)
+        // Dada la capacidad máxima, encuentra la combinación de capacidades (foreground y background tasks) que mas se aproxime
+        private string obtenerCombinacionDeTareasOptimas(int capacidadMaxima, Dictionary<int, int> foregroundTasks, Dictionary<int, int> backgroundTasks)
         {
 
             var crossTasks = foregroundTasks.Join(backgroundTasks, x => true, y => true, (f, b) => new { f, b })  // realizar cross join de las dos entradas
                         .Where(p => p.f.Value + p.b.Value <= capacidadMaxima);       // donde la suma de ambas capacidades no exceda la capacidad Maxima
 
-            // Verificar si existe algun posible resultado
+            // Verificar si no existe algun posible resultado
             if (crossTasks.Count() == 0)
             {
                 return "(,)";  // Si no existe ningun posible resultado
             }
 
-            var capacidadMaximaAlcanzada = crossTasks.Max(p => p.f.Value + p.b.Value);       // Obtener la capacidad maxima alcanzada por el cross de los procesos
+            var capacidadMaximaAlcanzada = crossTasks.Max(p => p.f.Value + p.b.Value);       // De los procesos posibles obtener la capacidad maxima alcanzada 
 
             var candidatos = crossTasks.Where(p => p.f.Value + p.b.Value == capacidadMaximaAlcanzada);   // Obtener solo los procesos que alcancen la capacidad maxima posible
 
@@ -71,13 +74,10 @@ namespace IkonChallenge
         private string procesar(int capacidadMaxima, string foregroundTasksLine, string backgroundTasksLine)
         {
 
-            Dictionary<int, int> foregroundTasks = new Dictionary<int, int>();
-            Dictionary<int, int> backgroundTasks = new Dictionary<int, int>();
+            Dictionary<int, int> foregroundTasks = obtenerListaTareas(foregroundTasksLine);
+            Dictionary<int, int> backgroundTasks = obtenerListaTareas(backgroundTasksLine);
 
-            foregroundTasks = obtenerListaTareas(foregroundTasksLine);
-            backgroundTasks = obtenerListaTareas(backgroundTasksLine);
-
-            return obtenerProcesosOptimos(capacidadMaxima, foregroundTasks, backgroundTasks);
+            return obtenerCombinacionDeTareasOptimas(capacidadMaxima, foregroundTasks, backgroundTasks);
 
         }
     }
